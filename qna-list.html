@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q&A — 영덕감성산장</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #6b3a1f;
+  --primary-dark: #4a2510;
+  --text: #222222;
+  --sub: #555555;
+  --muted: #888888;
+  --border: #dddddd;
+  --surface: #ffffff;
+  --bg: #f7f7f7;
+  --radius: 12px;
+  --shadow: 0 2px 16px rgba(0,0,0,.12);
+  --sans: 'Noto Sans KR', sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:var(--sans); color:var(--text); background:var(--bg); }
+
+/* ── HEADER ── */
+.header {
+  position:sticky; top:0; z-index:200;
+  background:var(--surface); border-bottom:1px solid var(--border);
+  padding:0 40px; height:64px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.logo { display:flex; align-items:center; gap:10px; font-size:1.05rem; font-weight:900; color:#3d2010; text-decoration:none; }
+.logo-icon {
+  width:36px; height:36px; border-radius:50%;
+  background:linear-gradient(135deg,#7a5c3a,#4a3018);
+  display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0;
+}
+.header-nav { display:flex; align-items:center; gap:28px; }
+.header-nav a { text-decoration:none; font-size:.9rem; font-weight:600; color:var(--text); transition:color .15s; }
+.header-nav a:hover { color:var(--primary); }
+.btn-reserve-header {
+  padding:10px 22px; border-radius:999px;
+  background:#3d2010; color:#fff; border:none;
+  font-family:var(--sans); font-size:.88rem; font-weight:700;
+  cursor:pointer; transition:background .15s;
+}
+.btn-reserve-header:hover { background:#5c3319; }
+
+/* ── HERO ── */
+.hero { background:linear-gradient(135deg,#3d2210,#6b3a1f 55%,#8b5c3a); padding:44px 48px 36px; color:#fff; display:flex; align-items:center; justify-content:space-between; }
+.hero h1 { font-size:1.8rem; font-weight:900; margin-bottom:6px; }
+.hero p { font-size:.92rem; opacity:.75; }
+
+/* ── CONTENT ── */
+.content-wrap { max-width:900px; margin:32px auto; padding:0 24px 60px; }
+.content-card { background:var(--surface); border-radius:var(--radius); padding:32px; box-shadow:var(--shadow); }
+h2 { font-size:1.1rem; color:var(--primary); margin-bottom:8px; }
+.subtitle { color:var(--muted); font-size:.92rem; margin-bottom:28px; }
+table { width:100%; border-collapse:collapse; }
+thead { background:var(--bg); }
+th, td { padding:14px 10px; text-align:left; }
+th { color:var(--sub); font-size:.92rem; border-bottom:2px solid var(--border); }
+tr { border-bottom:1px solid var(--border); }
+td { font-size:.92rem; color:var(--text); }
+.btn { background:var(--primary); color:#fff; border:none; border-radius:8px; padding:9px 20px; font-size:.9rem; font-weight:700; cursor:pointer; transition:background .15s; text-decoration:none; display:inline-block; }
+.btn:hover { background:var(--primary-dark); }
+.btn-icon { border:none; border-radius:8px; width:36px; height:36px; font-size:1.1rem; cursor:pointer; transition:background .15s, transform .1s; display:inline-flex; align-items:center; justify-content:center; }
+.btn-icon:hover { transform:scale(1.12); }
+.btn-edit { background:#f0ebe4; color:var(--primary); }
+.btn-edit:hover { background:#e0d0c4; }
+.btn-del { background:#fee2e2; color:#ef4444; }
+.btn-del:hover { background:#fca5a5; }
+.btn-go { background:#f0ebe4; color:var(--primary); }
+.btn-go:hover { background:#e0d0c4; }
+.status-bar { font-size:.85rem; color:var(--muted); margin-bottom:10px; min-height:20px; }
+.status-bar.err { color:#ef4444; }
+    .pagination { display:flex; justify-content:center; align-items:center; gap:8px; margin-top:28px; margin-bottom:8px; flex-wrap:wrap; }
+    .page-btn { border:1.5px solid var(--border); border-radius:8px; background:var(--surface); color:var(--sub); width:44px; height:44px; font-size:.85rem; font-weight:700; cursor:pointer; transition:background .15s, color .15s; font-family:var(--sans); }
+    .page-btn:hover { background:var(--bg); color:var(--primary); border-color:var(--primary); }
+    .page-btn.active { background:var(--primary); color:#fff; border-color:var(--primary); }
+    .page-btn:disabled { opacity:.35; cursor:default; }
+.app-title { font-weight:700; color:var(--primary); }
+.desc { color:var(--sub); font-size:.92rem; }
+.date { color:var(--muted); font-size:.88rem; }
+
+@media(max-width:600px){
+  .header { flex-wrap:wrap; height:auto; padding:8px 16px 0; }
+  .logo { flex:1; order:1; }
+  .btn-reserve-header { order:2; font-size:0 !important; padding:8px 11px !important; }
+  .btn-reserve-header::after { content:"📋"; font-size:1.2rem; }
+  .header-nav { order:3; width:100%; justify-content:space-around; padding:6px 0 8px; border-top:1px solid var(--border); margin-top:8px; gap:0 !important; }
+  .header-nav a { flex:1; text-align:center; font-size:0 !important; }
+  .header-nav a::after { font-size:1.35rem; content:attr(data-icon); }
+  .content-wrap { padding:0 12px 40px; }
+  .hero { padding:28px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <a class="logo" href="index.html" title="홈으로">
+    <div class="logo-icon">🏠</div>
+    영덕감성산장
+  </a>
+  <nav class="header-nav">
+    <a href="index.html#about" data-icon="🏠">숙소 소개</a>
+    <a href="index.html#amenities" data-icon="🛁">편의시설</a>
+    <a href="surroundings.html" data-icon="🌿">주변 환경</a>
+    <a href="pic_view.html" data-icon="📷">갤러리</a>
+    <a href="review.html" data-icon="💬">게스트 후기</a>
+    <a href="reserved_view.html" data-icon="📅">예약현황</a>
+  </nav>
+  <button class="btn-reserve-header" onclick="location.href='reserved_guest.html'">예약 신청</button>
+</header>
+
+<!-- HERO -->
+<section class="hero" style="padding:24px 48px;">
+  <p style="font-size:1rem;opacity:.9;">❓ Q &amp; A &nbsp;|&nbsp; 궁금한 점을 확인하고 문의하세요</p>
+</section>
+  <div class="content-wrap"><div class="content-card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <div id="statusBar" class="status-bar" style="margin-bottom:0;">⏳ 목록 불러오는 중...</div>
+      <a href="qna-add.html" class="btn" id="btnAdd" style="text-decoration:none;white-space:nowrap;">+ Q&amp;A 등록</a>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>등록일</th>
+          <th>질문</th>
+          <th>답변</th>
+          <th>관리</th>
+        </tr>
+      </thead>
+      <tbody id="appTbody"></tbody>
+    </table>
+    <div class="pagination" id="pagination"></div>
+  </div>
+  <script>
+    // ── 설정 ──
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzZDRXoaAZb6ukSoUWNI3d20dD3ROPOhkYRdga3F0kmX3RQUoskIprVtSS046cdNefq-Q/exec';
+    const SHEET_ID = '1tIHCgQNqSQgWmjilcP74z7SWvfO0JbD-V8dC0fJ5CV0';
+
+    // ── 상태 메시지 ──
+    function setStatus(msg, isErr) {
+      const el = document.getElementById('statusBar');
+      el.textContent = msg;
+      el.className = 'status-bar' + (isErr ? ' err' : '');
+    }
+
+    // ── GAS에서 목록 로드 ──
+    async function loadApps() {
+      try {
+        const res = await fetch(`${APPS_SCRIPT_URL}?action=list&target=qna`);
+        const json = await res.json();
+        if (!json.ok) throw new Error('GAS 응답 오류');
+        // GAS 데이터를 localStorage에도 캐시
+        localStorage.setItem('qna', JSON.stringify(json.data));
+        renderApps(json.data);
+        setStatus(`✅ ${json.data.length}개 Q&A 로드 완료`);
+      } catch(e) {
+        // GAS 실패 시 localStorage 캐시로 폴백
+        const cached = getCachedApps();
+        if (cached.length) {
+          renderApps(cached);
+          setStatus('⚠️ 오프라인 캐시로 표시 중 (GAS 연결 실패)', true);
+        } else {
+          setStatus('❌ 데이터 로드 실패: ' + e.message, true);
+        }
+      }
+    }
+
+    function getCachedApps() {
+      try { return JSON.parse(localStorage.getItem('qna') || '[]'); } catch(e) { return []; }
+    }
+
+    // ── GAS에 전체 목록 저장 ──
+    async function saveApps(apps) {
+      const data = encodeURIComponent(JSON.stringify(apps));
+      const res = await fetch(`${APPS_SCRIPT_URL}?action=save&target=qna&data=${data}`);
+      const json = await res.json();
+      if (!json.ok) throw new Error('저장 실패');
+      localStorage.setItem('qna', JSON.stringify(apps));
+    }
+
+    // ── 호스트 모드 확인 ──
+    const HOST_KEY = 'pension_host';
+    function isHost() { return sessionStorage.getItem(HOST_KEY) === '1'; }
+
+    // ── 페이징 ──
+    const PAGE_SIZE = 5;
+    let currentPage = 1;
+    let allApps = [];
+
+    function renderApps(apps) {
+      allApps = apps;
+      currentPage = 1;
+      renderPage();
+    }
+
+    function renderPage() {
+      const tbody = document.getElementById('appTbody');
+      tbody.innerHTML = '';
+      if (!allApps.length) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#8893b0;padding:32px;">등록된 Q&A가 없습니다.</td></tr>';
+        renderPagination();
+        return;
+      }
+      const host = isHost();
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const pageItems = allApps.slice(start, start + PAGE_SIZE);
+      pageItems.forEach((app, i) => {
+        const idx = start + i; // 전체 인덱스
+        const mgmt = host
+          ? `<td style="display:flex;gap:6px;align-items:center;" onclick="event.stopPropagation()">
+               <button class="btn-icon btn-edit" title="수정" onclick="location.href='qna-add.html?edit=${idx}'">✏️</button>
+               <button class="btn-icon btn-del" title="삭제" onclick="deleteApp(${idx})">🗑️</button>
+             </td>`
+          : `<td style="color:#ccc;font-size:.82rem;padding-left:6px;">🔒</td>`;
+        tbody.innerHTML += `<tr style="cursor:pointer;" onclick="location.href='qna-add.html?view=${idx}'">
+          <td class="date">${app.date}</td>
+          <td class="app-title" style="text-decoration:underline;text-underline-offset:3px;">${app.name}</td>
+          <td class="desc">${app.desc}</td>
+          ${mgmt}
+        </tr>`;
+      });
+      renderPagination();
+    }
+
+    function renderPagination() {
+      const total = Math.ceil(allApps.length / PAGE_SIZE);
+      const pg = document.getElementById('pagination');
+      pg.innerHTML = '';
+      if (total <= 1) return;
+      // 이전 버튼
+      const prev = document.createElement('button');
+      prev.className = 'page-btn';
+      prev.textContent = '‹';
+      prev.disabled = currentPage === 1;
+      prev.onclick = () => { currentPage--; renderPage(); };
+      pg.appendChild(prev);
+      // 페이지 번호
+      for (let i = 1; i <= total; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
+        btn.textContent = i;
+        btn.onclick = ((p) => () => { currentPage = p; renderPage(); })(i);
+        pg.appendChild(btn);
+      }
+      // 다음 버튼
+      const next = document.createElement('button');
+      next.className = 'page-btn';
+      next.textContent = '›';
+      next.disabled = currentPage === total;
+      next.onclick = () => { currentPage++; renderPage(); };
+      pg.appendChild(next);
+    }
+
+    // ── 삭제 ──
+    async function deleteApp(idx) {
+      if (!isHost()) { alert('호스트 모드에서만 삭제할 수 있습니다.'); return; }
+      if (!confirm('이 Q&A를 삭제할까요?')) return;
+      let apps = getCachedApps();
+      apps.splice(idx, 1);
+      setStatus('⏳ 삭제 중...');
+      try {
+        await saveApps(apps);
+        renderApps(apps);
+        setStatus(`✅ 삭제 완료`);
+      } catch(e) {
+        setStatus('❌ 삭제 실패: ' + e.message, true);
+      }
+    }
+
+    // ── 초기 로드 ──
+    loadApps();
+  </script>
+</body>
+</html>

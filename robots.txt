@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://giths-ops.github.io/sitemap.xml
